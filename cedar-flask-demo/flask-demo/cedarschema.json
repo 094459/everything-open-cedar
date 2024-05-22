@@ -1,34 +1,69 @@
 {
     "PhotoApp": {
+      "commonTypes": {
+        "ContextType": {
+            "type": "Record",
+            "attributes": {
+                "ip": {
+                    "type": "Extension",
+                    "name": "ipaddr",
+                    "required": false
+                },
+                "authenticated": {
+                    "type": "Boolean",
+                    "required": true
+                }
+            }
+        }
+    },
       "entityTypes": {
+        "Application": {},
         "User": {
           "memberOfTypes": ["UserGroup"]
         },
         "UserGroup": {},
         "Photo": {
-          "memberOfTypes": ["Album"]
+          "memberOfTypes": ["Album"],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "owner": {
+                "type": "Entity",
+                "name": "User"
+              }
+            }
+          }
         },
         "Album": {
-          "memberOfTypes": ["Album"]
+          "memberOfTypes": ["Album"],
+          "shape": {
+            "type": "Record",
+            "attributes": {
+              "owner": {
+                "type": "Entity",
+                "name": "User"
+              }
+            }
+          }
         }
       },
       "actions": {
         "viewPhoto": {
           "appliesTo": {
             "principalTypes": ["User"],
-            "resourceTypes": ["Photo"]
+            "resourceTypes": ["Photo","Album"]
           }
         },
         "managePhoto":{
             "appliesTo": {
                 "principalTypes": ["User"],
-                "resourceTypes": ["Photo"]
+                "resourceTypes": ["Photo","Album"]
             }            
         },
         "siteAdmin":{
             "appliesTo": {
                 "principalTypes": ["User"],
-                "resourceTypes": ["Photo"]
+                "resourceTypes": ["Photo","Album"]
             }            
         }
       }
