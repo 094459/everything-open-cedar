@@ -23,7 +23,7 @@
 // )
 // when { resource.owner == principal };
 
-// policy3 - ALLOW for the Doe's to manage Photos
+// // policy3 - ALLOW for the Doe's to manage Photos
 // permit (
 //   principal in PhotoApp::UserGroup::"DoeFamily", 
 //   action == PhotoApp::Action::"managePhoto", 
@@ -38,7 +38,15 @@
 // )
 // when { resource.owner == principal };
 
-// policy3b - ALLOW for the Doe's to manage Photos when MFA is true
+// policy3b - FORBID access for the Doe's to manage Photos unless you are the owner the album
+// forbid (
+//   principal, 
+//   action == PhotoApp::Action::"managePhoto", 
+//   resource in PhotoApp::Album::"DoePhotos"
+// )
+// unless { resource.owner == principal };
+
+// policy3c - ALLOW for the Doe's to manage Photos when MFA is true
 // permit (
 //   principal in PhotoApp::UserGroup::"DoeFamily", 
 //   action == PhotoApp::Action::"managePhoto", 
