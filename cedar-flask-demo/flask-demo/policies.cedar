@@ -8,11 +8,11 @@
 
 // Policy1 - ALLOW for the Doe's to view Private Photos
 //   action in [PhotoApp::Action::"viewPhoto", PhotoApp::Action::"managePhoto"],
-permit (
-  principal in PhotoApp::UserGroup::"DoeFamily", 
-  action == PhotoApp::Action::"viewPhoto",
-  resource in PhotoApp::Album::"DoePhotos"
-);
+// permit (
+//   principal in PhotoApp::UserGroup::"DoeFamily", 
+//   action == PhotoApp::Action::"viewPhoto",
+//   resource in PhotoApp::Album::"DoePhotos"
+// );
 
 // Policy2a - ALLOW only access to pics where you are the owner
 // in this case, only JaneDoe is the owner. JohnDoe will not get access
@@ -31,19 +31,27 @@ permit (
 // );
 
 // policy3a - ALLOW for the Doe's to manage Photos who own the album
-permit (
-  principal in PhotoApp::UserGroup::"DoeFamily", 
-  action == PhotoApp::Action::"managePhoto", 
-  resource in PhotoApp::Album::"DoePhotos"
-)
-when { resource.owner == principal };
+// permit (
+//   principal in PhotoApp::UserGroup::"DoeFamily", 
+//   action == PhotoApp::Action::"managePhoto", 
+//   resource in PhotoApp::Album::"DoePhotos"
+// )
+// when { resource.owner == principal };
+
+// policy3b - ALLOW for the Doe's to manage Photos when MFA is true
+// permit (
+//   principal in PhotoApp::UserGroup::"DoeFamily", 
+//   action == PhotoApp::Action::"managePhoto", 
+//   resource in PhotoApp::Album::"DoePhotos"
+// )
+// when { context has MFAEnable && context.MFAEnable == true };
 
 //policy4 - ALLOW for Admin User principals
-permit (
-  principal == PhotoApp::User::"admin", 
-  action, 
-  resource
-);
+// permit (
+//   principal == PhotoApp::User::"admin", 
+//   action, 
+//   resource
+// );
 
 // policy5 - ALLOW for ric User to view photos
 // permit (
