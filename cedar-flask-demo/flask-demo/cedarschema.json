@@ -11,7 +11,7 @@
                 },
                 "authenticated": {
                     "type": "Boolean",
-                    "required": true
+                    "required": false
                 }
             }
         }
@@ -51,7 +51,10 @@
         "viewPhoto": {
           "appliesTo": {
             "principalTypes": ["User"],
-            "resourceTypes": ["Photo","Album"]
+            "resourceTypes": ["Photo","Album"],
+            "context": {
+              "type": "ContextType"
+            }
           }
         },
         "managePhoto":{
@@ -59,13 +62,7 @@
                 "principalTypes": ["User"],
                 "resourceTypes": ["Photo","Album"],
                 "context": {
-                  "type": "Record",
-                  "attributes": {
-                    "MFAEnable": {
-                      "required": false,
-                      "type": "Boolean"
-                    }
-                  }
+                  "type": "ContextType"
                 }
             }            
         },

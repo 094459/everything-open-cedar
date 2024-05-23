@@ -6,6 +6,16 @@
 //   resource in PhotoApp::Album::"DoePublicPhotos"
 // );
 
+// Policy0a - ALLOW Public access for only authenticated users
+
+// permit (
+//   principal, 
+//   action == PhotoApp::Action::"viewPhoto", 
+//   resource in PhotoApp::Album::"DoePublicPhotos"
+// )
+// when { context has authenticated && context.authenticated == true };
+
+
 // Policy1 - ALLOW for the Doe's to view Private Photos
 //   action in [PhotoApp::Action::"viewPhoto", PhotoApp::Action::"managePhoto"],
 // permit (
@@ -14,7 +24,7 @@
 //   resource in PhotoApp::Album::"DoePhotos"
 // );
 
-// Policy2a - ALLOW only access to pics where you are the owner
+// Policy2 - ALLOW only access to pics where you are the owner
 // in this case, only JaneDoe is the owner. JohnDoe will not get access
 // permit (
 //   principal in PhotoApp::UserGroup::"DoeFamily", 
@@ -23,7 +33,7 @@
 // )
 // when { resource.owner == principal };
 
-// // policy3 - ALLOW for the Doe's to manage Photos
+// policy3 - ALLOW for the Doe's to manage Photos
 // permit (
 //   principal in PhotoApp::UserGroup::"DoeFamily", 
 //   action == PhotoApp::Action::"managePhoto", 
@@ -77,9 +87,17 @@
 // );
 
 // policy6a - ALLOW for ric User to be siteadmin only from specific IP
-permit (
-  principal == PhotoApp::User::"ric", 
-  action == PhotoApp::Action::"siteAdmin", 
-  resource
-)
-when { context has ip && context.ip.isInRange(ip("10.44.1.0/24")) };
+// permit (
+//   principal == PhotoApp::User::"ric", 
+//   action == PhotoApp::Action::"siteAdmin", 
+//   resource
+// )
+// when { context has ip && context.ip.isInRange(ip("10.44.1.0/24")) };
+
+// policy6b - ALLOW for ric User to be siteadmin only from specific IP
+// permit (
+//   principal == PhotoApp::User::"ric", 
+//   action == PhotoApp::Action::"siteAdmin", 
+//   resource
+// )
+// when { context has ip && context.ip.isInRange(ip("11.44.1.0/24")) };

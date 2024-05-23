@@ -84,9 +84,9 @@ def login():
             global request_manage
             global public_photos
             request_adm = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"siteAdmin\"","resource": "PhotoApp::Photo::\"\"","context": { "authenticated": True , "ip" : "10.44.1.99" }}
-            request_photo = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"viewPhoto\"","resource": "PhotoApp::Album::\"DoePhotos\"", "context": { }}
-            public_photos = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"viewPhoto\"","resource": "PhotoApp::Album::\"DoePublicPhotos\"","context": { }}
-            request_manage = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"managePhoto\"","resource": "PhotoApp::Album::\"DoePhotos\"","context": { "MFAEnable" : True }}
+            request_photo = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"viewPhoto\"","resource": "PhotoApp::Album::\"DoePhotos\"", "context": { "authenticated": True }}
+            public_photos = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"viewPhoto\"","resource": "PhotoApp::Album::\"DoePublicPhotos\"","context": { "authenticated": True }}
+            request_manage = {"principal": f"PhotoApp::User::\"{current_user.id}\"","action": "PhotoApp::Action::\"managePhoto\"","resource": "PhotoApp::Album::\"DoePhotos\"","context": { "authenticated": True }}
             return redirect(url_for('index'))
         else:
             flash('Invalid credentials', 'danger')
