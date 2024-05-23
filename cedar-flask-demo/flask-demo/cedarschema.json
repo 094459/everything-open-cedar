@@ -12,6 +12,10 @@
                 "authenticated": {
                     "type": "Boolean",
                     "required": false
+                },
+                "MFAEnable": {
+                  "required": false,
+                  "type": "Boolean"
                 }
             }
         }
