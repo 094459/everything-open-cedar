@@ -68,9 +68,18 @@
 //   resource
 // );
 
-// policy6 - ALLOW for ric User to view photos
+
+// policy6 - ALLOW for ric User to be siteadmin
 // permit (
 //   principal == PhotoApp::User::"ric", 
 //   action == PhotoApp::Action::"siteAdmin", 
 //   resource
 // );
+
+// policy6a - ALLOW for ric User to be siteadmin only from specific IP
+permit (
+  principal == PhotoApp::User::"ric", 
+  action == PhotoApp::Action::"siteAdmin", 
+  resource
+)
+when { context has ip && context.ip.isInRange(ip("10.44.1.0/24")) };

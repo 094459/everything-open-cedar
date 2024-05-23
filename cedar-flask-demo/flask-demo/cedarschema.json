@@ -72,7 +72,10 @@
         "siteAdmin":{
             "appliesTo": {
                 "principalTypes": ["User"],
-                "resourceTypes": ["Photo","Album"]
+                "resourceTypes": ["Photo","Album"],
+                "context": {
+                  "type": "ContextType"
+                }
             }            
         }
       }
